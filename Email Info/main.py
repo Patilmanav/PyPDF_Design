@@ -66,14 +66,22 @@ pdf.ln(5)
 pdf.set_font('Times', 'B', 16)
 pdf.cell(40, 10, "Full Name", 0)
 fullname = profile_data.get('names', {}).get('PROFILE', {}).get('fullname', 'N/A')
-pdf.cell(40, 10, f": {fullname}", 0, 1)
+pdf.cell(10, 10, ':', 0)
+pdf.set_font('Times', '', 16)
+pdf.cell(40, 10, f"{fullname}", 0, 1)
 
+pdf.set_font('Times', 'B', 16)
 pdf.cell(40, 10, "Email", 0)
-pdf.cell(40, 10, f": {email_value}", 0, 1)
+pdf.cell(10, 10, ':', 0)
+pdf.set_font('Times', '', 16)
+pdf.cell(40, 10, f"{email_value}", 0, 1)
 
+pdf.set_font('Times', 'B', 16)
 pdf.cell(40, 10, "User Types", 0)
 user_types = ', '.join(profile_data.get('profileInfos', {}).get('PROFILE', {}).get('userTypes', []))
-pdf.cell(40, 10, f": {user_types}", 0, 1)
+pdf.cell(10, 10, ':', 0)
+pdf.set_font('Times', '', 16)
+pdf.cell(40, 10, f"{user_types}", 0, 1)
 # Profile Section Ended
 
 pdf.ln(10)
@@ -93,7 +101,7 @@ apps = profile_data.get('inAppReachability', {}).get('PROFILE', {}).get('apps', 
 for app in apps:
     pdf.set_font('Arial', 'B', 22)
     pdf.cell(20, 10, bullet, align='C')
-    pdf.set_font('Times', 'B', 16)
+    pdf.set_font('Times', '', 16)
     pdf.cell(40, 10, app, 0, 1)
     line_gap += 10
 
@@ -120,17 +128,25 @@ pdf.ln(5)
 pdf.set_font('Times', 'B', 14)
 pdf.cell(40, 10, "Address")
 address = address_data.get('address', 'N/A')
-pdf.multi_cell(0, 10, f":  {address}", 0, fill=0, align='L')
+pdf.set_font('Times', '', 16)
+pdf.cell(10, 10, ':', 0)
+pdf.multi_cell(0, 10, f"{address}", 0, fill=0, align='L')
 
 line_gap += 10
 longitude = address_data.get('position', {}).get('longitude', 'N/A')
+pdf.set_font('Times', 'B', 16)
 pdf.cell(40, 10, "Longitude")
-pdf.cell(0, 10, f":  {longitude}", 0, 1)
+pdf.set_font('Times', '', 16)
+pdf.cell(10, 10, ':', 0)
+pdf.cell(0, 10, f"{longitude}", 0, 1)
 
 line_gap += 10
 latitude = address_data.get('position', {}).get('latitude', 'N/A')
+pdf.set_font('Times', 'B', 16)
 pdf.cell(40, 10, "Latitude")
-pdf.cell(0, 10, f":  {latitude}", 0, 1)
+pdf.set_font('Times', '', 16)
+pdf.cell(10, 10, ':', 0)
+pdf.cell(0, 10, f"{latitude}", 0, 1)
 line_gap += 10
 # Address Section Ended
 
