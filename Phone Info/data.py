@@ -2,6 +2,7 @@ data = {
     "Truecaller_data": {
         "status": True,
         "data": 
+            [
             {
                 "name": "Pallav Vaniya",
                 "phones": [
@@ -24,7 +25,8 @@ data = {
                         "type": "address",
                     }
                 ],
-            }
+            },
+        ],
     },
     "eyecon_data": {
         "status": True,

@@ -134,4 +134,41 @@ pdf.cell(0, 10, f":  {latitude}", 0, 1)
 line_gap += 10
 # Address Section Ended
 
+pdf.add_page()
+# //Legal Disclaimer for OSINT Report
+pdf.set_text_color(0, 0, 0)
+pdf.set_font('Times', 'B', 18)
+pdf.image("./img/arrow.png",w=10)
+pdf.set_xy(left_margin + 25, 10)
+pdf.cell(0, 10, "Legal Disclaimer for OSINT Report", 0,ln=1)
+
+para = '''
+The information in this Open Source Intelligence (OSINT) report is derived from
+publicly available data and online sources as of its creation date. The accuracy,
+completeness, and reliability of the information can vary and are not guaranteed.
+This report is for informational purposes only and does not constitute legal,
+professional, or expert advice.
+
+The findings and conclusions in this report are based on publicly accessible
+information and do not include any confidential or proprietary data. The recipient
+acknowledges that the information may change over time, and any actions taken
+based on this report are at their own risk. This report is not intended to infringe
+upon any individual’s privacy rights or violate any laws or regulations. It is the
+recipient’s responsibility to use the information responsibly and in compliance with
+all applicable laws, regulations, and ethical standards.
+
+The creators and providers of this report are not liable for any losses, damages, or
+consequences arising from the use or reliance on the information in this report. The
+recipient should independently verify any information before making decisions or
+taking actions based on this report. By using this report, the recipient agrees to
+release, indemnify, and hold harmless the creators and providers from any claims,
+demands, actions, or liabilities arising from its use.
+
+It is strongly recommended that the recipient seek legal, professional, or expert
+advice before making decisions or taking actions based on the information in this
+report.
+'''
+pdf.set_font('DejaVu', '', 12)
+pdf.multi_cell(0,10,str(para))
+
 pdf.output(os.path.join(os.getcwd(), f"Email info/{email_value}_Email.pdf"), 'F')

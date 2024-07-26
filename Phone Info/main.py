@@ -1,5 +1,5 @@
 from fpdf import FPDF
-from data import data
+from data1 import data
 import datetime
 import os
 
@@ -40,9 +40,10 @@ pdf.cell(50,10,"RUDRASTRA",0)
 pdf.set_font('DejaVu', '', 22)
 pdf.cell(30,10,"OSNIT",0,1)
 pdf.cell(35,10,"REPORT",0)
+truecaller_data = data.get('Truecaller_data', {}).get('data', {})[0]
 
 pdf.set_font('times', '', 18)
-pdf.cell(30,10,"for  {}".format(data.get('Truecaller_data', {}).get('data', {}).get('phones', [{}])[0].get('e164Format', 'N/A')),0)
+pdf.cell(30,10,"for  {}".format(truecaller_data.get('phones', [{}])[0].get('e164Format', 'N/A')),0)
 
 # Add confidential note
 pdf.set_xy(0, 30 + 10)  # Adjust y-position after the image
@@ -65,7 +66,7 @@ pdf.cell(0, 10, 'Subject Information', 0, ln=1)
 pdf.set_font('Times', 'B', 16)
 pdf.cell(80, 10, 'Phone Number')
 pdf.set_font('Times', '', 16)
-pdf.cell(80, 10, f": {data.get('Truecaller_data', {}).get('data', {}).get('phones', [{}])[0].get('e164Format', 'N/A')}", ln=1)
+pdf.cell(80, 10, f": {truecaller_data.get('phones', [{}])[0].get('e164Format', 'N/A')}", ln=1)
 pdf.set_font('Times', 'B', 16)
 pdf.cell(80, 10, 'Date Of Report')
 pdf.set_font('Times', '', 16)
@@ -89,6 +90,7 @@ for i in data.get('eyecon_data', {}).get('data', {}).get('otherNames', []):
     names.append(i.get('name', 'N/A'))
 
 for index, i in enumerate(names):
+    pdf.set_font('Times', '', 16)
     names_len = len(names)
     pdf.cell(0, 10, f"{index}.        {i}", 0, 1)
 
@@ -100,7 +102,6 @@ pdf.image("./img/arrow.png",w=10)
 pdf.set_xy(left_margin + 25, 80+60+(10*names_len+30))
 pdf.cell(0, 10, "CARRIER INFO", 0, ln=1)
 
-truecaller_data = data.get('Truecaller_data', {}).get('data', {})
 
 pdf.set_font('Times', 'B', 16)
 pdf.cell(80, 10, 'Mobile')
@@ -120,7 +121,7 @@ pdf.set_font('Times', '', 16)
 pdf.cell(80, 10, ': {}, {}'.format(truecaller_data.get('addresses', [{}])[0].get('address', 'N/A'), truecaller_data.get('addresses', [{}])[0].get('city', 'N/A')), ln=1)
 
 pdf.ln(20)
-
+pdf.add_page()
 pdf.set_text_color(0, 0, 0)
 pdf.set_font('Times', 'B', 18)
 pdf.image("./img/arrow.png", w=10)
@@ -148,50 +149,54 @@ pdf.ln(20)
 
 sc_md_ac = data.get('social_media_accounts', {}).get('data', {}).get('account_details', {})
 wp_ac = data.get('whatsapp_data', {})
-social_media_acc = {
-    "WhatsApp":{
-        "logo" : "./img/whatsapp.png",
-        "Status": "Account Exist" if wp_ac.get('number') else "Account Not Exist",
-        "AboutStatus" : wp_ac.get('about'),
-        "LastUpdate" : "19-11-2023 22:46"
-    },
-    
-    "Flipkart":{
-        "logo" : "./img/flipkart.png",
-        "Status": "Account Exist" if sc_md_ac.get('flipkart'.lower()).get('registered') else "Account Not Exist",
-    },
-    
-    "ZEE5":{
-        "logo" : "./img/zee5.png",
-        "Status": "Account Exist" if sc_md_ac.get('ZEE5'.lower()).get('registered') else "Account Not Exist",
-    },
-    
-    "MakeMyTrip":{
-        "logo" : "./img/makemytrip.png",
-        "Status": "Account Exist" if sc_md_ac.get('MakeMyTrip'.lower()).get('registered') else "Account Not Exist",
-    },
-    
-    "Snapdeal":{
-        "logo" : "./img/snapdeal.png",
-        "Status": "Account Exist" if sc_md_ac.get('Snapdeal'.lower()).get('registered') else "Account Not Exist",
-    },
-    
-    "AltBalaji":{
-        "logo" : "./img/alt_balaji.png",
-        "Status": "Account Exist" if sc_md_ac.get('AltBalaji'.lower()).get('registered') else "Account Not Exist",
-    },
-    
-    "Shopclues":{
-        "logo" : "./img/shopclus.jpg",
-        "Status": "Account Exist" if sc_md_ac.get('Shopclues'.lower()).get('registered') else "Account Not Exist",
-    },
-    
-    "Ajio":{
-        "logo" : "./img/alt_balaji.png",
-        "Status": "Account Exist" if sc_md_ac.get('Ajio'.lower()).get('registered') else "Account Not Exist",
-    },
-    
-}
+
+if data.get('social_media_accounts', {}).get("success"):
+    social_media_acc = {
+        "WhatsApp":{
+            "logo" : "./img/whatsapp.png",
+            "Status": "Account Exist" if wp_ac.get('number') else "Account Not Exist",
+            "AboutStatus" : wp_ac.get('about'),
+            "LastUpdate" : "19-11-2023 22:46"
+        },
+        
+        "Flipkart":{
+            "logo" : "./img/flipkart.png",
+            "Status": "Account Exist" if sc_md_ac.get('flipkart'.lower()).get('registered') else "Account Not Exist",
+        },
+        
+        "ZEE5":{
+            "logo" : "./img/zee5.png",
+            "Status": "Account Exist" if sc_md_ac.get('ZEE5'.lower()).get('registered') else "Account Not Exist",
+        },
+        
+        "MakeMyTrip":{
+            "logo" : "./img/makemytrip.png",
+            "Status": "Account Exist" if sc_md_ac.get('MakeMyTrip'.lower()).get('registered') else "Account Not Exist",
+        },
+        
+        "Snapdeal":{
+            "logo" : "./img/snapdeal.png",
+            "Status": "Account Exist" if sc_md_ac.get('Snapdeal'.lower()).get('registered') else "Account Not Exist",
+        },
+        
+        "AltBalaji":{
+            "logo" : "./img/alt_balaji.png",
+            "Status": "Account Exist" if sc_md_ac.get('AltBalaji'.lower()).get('registered') else "Account Not Exist",
+        },
+        
+        "Shopclues":{
+            "logo" : "./img/shopclus.jpg",
+            "Status": "Account Exist" if sc_md_ac.get('Shopclues'.lower()).get('registered') else "Account Not Exist",
+        },
+        
+        "Ajio":{
+            "logo" : "./img/alt_balaji.png",
+            "Status": "Account Exist" if sc_md_ac.get('Ajio'.lower()).get('registered') else "Account Not Exist",
+        },
+        
+    }
+else:
+    social_media_acc = None
 
 pdf.set_text_color(0, 0, 0)
 pdf.set_font('Times', 'B', 18)
@@ -200,49 +205,98 @@ pdf.set_xy(left_margin + 25, 80)
 pdf.cell(0, 10, "SOCIAL MEDIA ACCOUNTS", 0,ln=1)
 
 start = 110
-for k,v in social_media_acc.items():
-    if start<270:
-        pdf.set_xy(left_margin+10, start)
-        pdf.image(str(v['logo']),w=20)
-        pdf.set_font('Times', 'B', 16)
-        pdf.set_xy(left_margin + 35, start)
-        pdf.cell(50,10,f"{str(k)}",0,1)
-        
-        pdf.set_font('Times', '', 16)
-        pdf.set_xy(left_margin + 35, start+10)
-        pdf.cell(50,10,"Status",0)
-        
-        pdf.cell(50,10,f"{str(v['Status'])}",0,1)
-        if k=="WhatsApp":
-            pdf.set_xy(left_margin + 35, start+20)
-            pdf.cell(50,10,"AboutStatus",0)
-            pdf.cell(50,10,f"{str(v.get('AboutStatus','none'))}",0,1)
-            pdf.set_xy(left_margin + 35, start+30)
-            pdf.cell(50,10,"LastUpdate",0)
-            pdf.cell(50,10,f"{str(v.get('LastUpdate','none'))}",0,1)
-        start += 55
-    else:
-        pdf.add_page()
-        start = 10
-        pdf.set_xy(left_margin+10, start)
-        pdf.image(str(v['logo']),w=20)
-        pdf.set_font('Times', 'B', 16)
-        pdf.set_xy(left_margin + 35, start)
-        pdf.cell(50,10,f"{str(k)}",0,1)
-        
-        pdf.set_font('Times', '', 16)
-        pdf.set_xy(left_margin + 35, start+10)
-        pdf.cell(50,10,"Status",0)
-        pdf.cell(50,10,f"{str(v['Status'])}",0,1)
-        if k=="WhatsApp":
-            pdf.set_xy(left_margin + 35, start+20)
-            pdf.cell(50,10,"AboutStatus",0)
-            pdf.cell(50,10,f"{str(v.get('AboutStatus','none'))}",0,1)
-            pdf.set_xy(left_margin + 35, start+30)
-            pdf.cell(50,10,"LastUpdate",0)
-            pdf.cell(50,10,f"{str(v.get('LastUpdate','none'))}",0,1)
-        start += 55
-        
+if social_media_acc:
+    for k,v in social_media_acc.items():
+        if start<270:
+            pdf.set_xy(left_margin+10, start)
+            pdf.image(str(v['logo']),w=20)
+            pdf.set_font('Times', 'B', 16)
+            pdf.set_xy(left_margin + 35, start)
+            pdf.cell(50,10,f"{str(k)}",0,1)
+            
+            pdf.set_font('Times', '', 16)
+            pdf.set_xy(left_margin + 35, start+10)
+            pdf.cell(50,10,"Status",0)
+            
+            pdf.cell(50,10,f"{str(v['Status'])}",0,1)
+            if k=="WhatsApp":
+                pdf.set_xy(left_margin + 35, start+20)
+                pdf.cell(50,10,"AboutStatus",0)
+                pdf.cell(50,10,f"{str(v.get('AboutStatus','none'))}",0,1)
+                pdf.set_xy(left_margin + 35, start+30)
+                pdf.cell(50,10,"LastUpdate",0)
+                pdf.cell(50,10,f"{str(v.get('LastUpdate','none'))}",0,1)
+            start += 55
+        else:
+            pdf.add_page()
+            start = 10
+            pdf.set_xy(left_margin+10, start)
+            pdf.image(str(v['logo']),w=20)
+            pdf.set_font('Times', 'B', 16)
+            pdf.set_xy(left_margin + 35, start)
+            pdf.cell(50,10,f"{str(k)}",0,1)
+            
+            pdf.set_font('Times', '', 16)
+            pdf.set_xy(left_margin + 35, start+10)
+            pdf.cell(50,10,"Status",0)
+            pdf.cell(50,10,f"{str(v['Status'])}",0,1)
+            if k=="WhatsApp":
+                pdf.set_xy(left_margin + 35, start+20)
+                pdf.cell(50,10,"AboutStatus",0)
+                pdf.cell(50,10,f"{str(v.get('AboutStatus','none'))}",0,1)
+                pdf.set_xy(left_margin + 35, start+30)
+                pdf.cell(50,10,"LastUpdate",0)
+                pdf.cell(50,10,f"{str(v.get('LastUpdate','none'))}",0,1)
+            start += 55
+
+    pdf.add_page()
+    start = 10
+else:
+    pdf.set_font('Times', 'B', 22)
+    pdf.set_text_color(204,0,0)
+    pdf.cell(0,30,f"No Data Found",0,1,'C',0)
+    start += 10
+    
+upi_status = data.get('Upi_Data', {}).get('status', {})
+
+# UPI Section
+pdf.set_text_color(0, 0, 0)
+pdf.set_font('Times', 'B', 18)
+# pdf.set_top_margin(img_margin)
+pdf.image("./img/arrow.png",w=10,y=start)
+pdf.set_xy(left_margin + 25, start)
+pdf.cell(0, 10, "UPI Information", 0,ln=1)
+
+pdf.set_font('Times', 'B', 16)
+if upi_status:
+    upi_data = data.get('Upi_Data', {}).get('data', {}).get('response2', {})
+
+    # pdf.set_xy(left_margin + 35, start+20)
+    pdf.cell(50,10,"VPA Token",0)    
+    pdf.cell(10,10,":",0)  
+    pdf.set_font('Times', '', 16)
+    pdf.multi_cell(0,10,f"{str(upi_data.get('vpa_token','none'))}",0,'L')
+    # pdf.set_xy(left_margin + 35, start+30)
+    
+    pdf.set_font('Times', 'B', 16)
+    pdf.cell(50,10,"Masked VPA",0)
+    pdf.cell(10,10,":",0)  
+    
+    pdf.set_font('Times', '', 16)
+    pdf.cell(40,10,f"{str(upi_data.get('masked_vpa','none'))}",0,1)
+    
+    pdf.set_font('Times', 'B', 16)
+    pdf.cell(50,10,"Customer Name",0)
+    pdf.cell(10,10,":",0)  
+    
+    pdf.set_font('Times', '', 16)
+    pdf.cell(40,10,f"{str(upi_data.get('customer_name','none'))}",0,1)
+else:
+    pdf.set_font('Times', 'B', 26)
+    pdf.set_text_color(204,0,0)
+    pdf.multi_cell(0,pdf.h - 100,f"No Data Found",0,'C',0)
+    
+
 pdf.add_page()
 # //Source Images
 pdf.set_text_color(0, 0, 0)
@@ -250,8 +304,6 @@ pdf.set_font('Times', 'B', 18)
 pdf.image("./img/arrow.png",w=10)
 pdf.set_xy(left_margin + 25, 10)
 pdf.cell(0, 10, "Source Images", 0,ln=1)
-
-
 
 pdf.add_page()
 # //E-MAIL BREACHED
@@ -300,5 +352,5 @@ pdf.set_font('DejaVu', '', 12)
 pdf.multi_cell(0,10,str(para))
 
 
-pdf.output(os.path.join(os.getcwd(),f"Phone Info/{data.get('Truecaller_data').get('data').get('phones')[0].get('e164Format')}_phone.pdf"), 'F')
+pdf.output(os.path.join(os.getcwd(),f"Phone Info/{truecaller_data.get('phones')[0].get('e164Format')}_phone.pdf"), 'F')
 
