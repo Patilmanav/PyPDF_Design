@@ -6,7 +6,7 @@ import os
 class PDF(FPDF):
     def header(self):
         # Left margin
-        self.set_fill_color(0, 18, 95 )
+        self.set_fill_color(0, 18, 95)
         self.rect(0, 0, left_margin, self.h, 'F')
 
     # Page footer
@@ -17,8 +17,6 @@ class PDF(FPDF):
         self.set_font('Arial', 'I', 8)
         # Page number
         self.cell(0, 10, 'Page ' + str(self.page_no()) + '/{nb}', 0, 0, 'C')
-
-
 
 # Instantiation of inherited class
 left_margin = 5
@@ -44,15 +42,15 @@ pdf.cell(30,10,"OSNIT",0,1)
 pdf.cell(35,10,"REPORT",0)
 
 pdf.set_font('times', '', 18)
-pdf.cell(30,10,"for  {}".format(data['Truecaller_data']['data']['phones'][0]['e164Format']),0)
+pdf.cell(30,10,"for  {}".format(data.get('Truecaller_data', {}).get('data', {}).get('phones', [{}])[0].get('e164Format', 'N/A')),0)
 
 # Add confidential note
 pdf.set_xy(0, 30 + 10)  # Adjust y-position after the image
 
 pdf.set_font('Times', '', 12)
 pdf.set_text_color(255, 255, 255)
-pdf.set_fill_color(0, 18, 95 )
-pdf.multi_cell(pdf.w, 10, "NOTE: This report is strictly confidential and only for Police officers. Don't share it with anyone else or post it on WhatsApp, Telegram, or anywhere else public.",0,fill=True,align='C')
+pdf.set_fill_color(0, 18, 95)
+pdf.multi_cell(pdf.w, 10, "NOTE: This report is strictly confidential and only for Police officers. Don't share it with anyone else or post it on WhatsApp, Telegram, or anywhere else public.", 0, fill=True, align='C')
 
 pdf.ln(20)
 
@@ -62,13 +60,12 @@ pdf.set_font('Times', 'B', 18)
 pdf.set_x(left_margin+10)
 pdf.image("./img/arrow.png",w=10)
 pdf.set_xy(left_margin + 25, 80)
-pdf.cell(0, 10, 'Subject Informationn', 0,ln=1)
-
+pdf.cell(0, 10, 'Subject Information', 0, ln=1)
 
 pdf.set_font('Times', 'B', 16)
 pdf.cell(80, 10, 'Phone Number')
 pdf.set_font('Times', '', 16)
-pdf.cell(80, 10, f": {data['Truecaller_data']['data']['phones'][0]['e164Format']}", ln=1)
+pdf.cell(80, 10, f": {data.get('Truecaller_data', {}).get('data', {}).get('phones', [{}])[0].get('e164Format', 'N/A')}", ln=1)
 pdf.set_font('Times', 'B', 16)
 pdf.cell(80, 10, 'Date Of Report')
 pdf.set_font('Times', '', 16)
@@ -84,51 +81,51 @@ pdf.set_text_color(0, 0, 0)
 pdf.set_font('Times', 'B', 18)
 pdf.image("./img/arrow.png",w=10)
 pdf.set_xy(left_margin + 25, 80+60)
-pdf.cell(0, 10, "NAME's", 0,ln=1)
+pdf.cell(0, 10, "NAME's", 0, ln=1)
 
 names_len = None
-names = [data['eyecon_data']['data']['fullName']]
-for i in data['eyecon_data']['data']['otherNames']:
-    names.append( i['name'])
+names = [data.get('eyecon_data', {}).get('data', {}).get('fullName', 'N/A')]
+for i in data.get('eyecon_data', {}).get('data', {}).get('otherNames', []):
+    names.append(i.get('name', 'N/A'))
 
-for index,i in enumerate(names):
+for index, i in enumerate(names):
     names_len = len(names)
-    pdf.cell(0,10,f"{index}.        {i}",0,1)
-    
+    pdf.cell(0, 10, f"{index}.        {i}", 0, 1)
+
 pdf.ln(20)
 
 pdf.set_text_color(0, 0, 0)
 pdf.set_font('Times', 'B', 18)
 pdf.image("./img/arrow.png",w=10)
 pdf.set_xy(left_margin + 25, 80+60+(10*names_len+30))
-pdf.cell(0, 10, "CARRIER INFO", 0,ln=1)
+pdf.cell(0, 10, "CARRIER INFO", 0, ln=1)
 
-truecaller_data = data['Truecaller_data']['data']
+truecaller_data = data.get('Truecaller_data', {}).get('data', {})
 
 pdf.set_font('Times', 'B', 16)
 pdf.cell(80, 10, 'Mobile')
 pdf.set_font('Times', '', 16)
-pdf.cell(80, 10, ': {}'.format(truecaller_data['phones'][0]['e164Format']), ln=1)
+pdf.cell(80, 10, ': {}'.format(truecaller_data.get('phones', [{}])[0].get('e164Format', 'N/A')), ln=1)
 pdf.set_font('Times', 'B', 16)
 pdf.cell(80, 10, 'Carrier')
 pdf.set_font('Times', '', 16)
-pdf.cell(80, 10, ': {}'.format(truecaller_data['phones'][0]['carrier']), ln=1)
+pdf.cell(80, 10, ': {}'.format(truecaller_data.get('phones', [{}])[0].get('carrier', 'N/A')), ln=1)
 pdf.set_font('Times', 'B', 16)
 pdf.cell(80, 10, 'Type')
 pdf.set_font('Times', '', 16)
-pdf.cell(80, 10, ': {}'.format(truecaller_data['phones'][0]['type']), ln=1)
+pdf.cell(80, 10, ': {}'.format(truecaller_data.get('phones', [{}])[0].get('type', 'N/A')), ln=1)
 pdf.set_font('Times', 'B', 16)
 pdf.cell(80, 10, 'Addresss')
 pdf.set_font('Times', '', 16)
-pdf.cell(80, 10, ': {}, {}'.format(truecaller_data['addresses'][0]['address'],truecaller_data['addresses'][0]['city']), ln=1)
+pdf.cell(80, 10, ': {}, {}'.format(truecaller_data.get('addresses', [{}])[0].get('address', 'N/A'), truecaller_data.get('addresses', [{}])[0].get('city', 'N/A')), ln=1)
 
 pdf.ln(20)
 
 pdf.set_text_color(0, 0, 0)
 pdf.set_font('Times', 'B', 18)
-pdf.image("./img/arrow.png",w=10)
+pdf.image("./img/arrow.png", w=10)
 pdf.set_xy(left_margin + 25, 10)
-pdf.cell(0, 10, "PORTING INFORMATION", 0,ln=1)
+pdf.cell(0, 10, "PORTING INFORMATION", 0, ln=1)
 
 pdf.set_font('Times', 'B', 16)
 pdf.cell(80, 10, 'Number Ported')
@@ -149,49 +146,49 @@ pdf.cell(80, 10, ': prepaid', ln=1)
 
 pdf.ln(20)
 
-sc_md_ac = data['social_media_accounts']['data']['account_details']
-wp_ac = data['whatsapp_data']
+sc_md_ac = data.get('social_media_accounts', {}).get('data', {}).get('account_details', {})
+wp_ac = data.get('whatsapp_data', {})
 social_media_acc = {
     "WhatsApp":{
         "logo" : "./img/whatsapp.png",
-        "Status": "Account Exist" if wp_ac['number'] else "Account Not Exist",
-        "AboutStatus" : wp_ac['about'],
+        "Status": "Account Exist" if wp_ac.get('number') else "Account Not Exist",
+        "AboutStatus" : wp_ac.get('about'),
         "LastUpdate" : "19-11-2023 22:46"
     },
     
     "Flipkart":{
         "logo" : "./img/flipkart.png",
-        "Status": "Account Exist" if sc_md_ac['flipkart'.lower()]['registered'] else "Account Not Exist",
+        "Status": "Account Exist" if sc_md_ac.get('flipkart'.lower()).get('registered') else "Account Not Exist",
     },
     
     "ZEE5":{
         "logo" : "./img/zee5.png",
-        "Status": "Account Exist" if sc_md_ac['ZEE5'.lower()]['registered'] else "Account Not Exist",
+        "Status": "Account Exist" if sc_md_ac.get('ZEE5'.lower()).get('registered') else "Account Not Exist",
     },
     
     "MakeMyTrip":{
         "logo" : "./img/makemytrip.png",
-        "Status": "Account Exist" if sc_md_ac['MakeMyTrip'.lower()]['registered'] else "Account Not Exist",
+        "Status": "Account Exist" if sc_md_ac.get('MakeMyTrip'.lower()).get('registered') else "Account Not Exist",
     },
     
     "Snapdeal":{
         "logo" : "./img/snapdeal.png",
-        "Status": "Account Exist" if sc_md_ac['Snapdeal'.lower()]['registered'] else "Account Not Exist",
+        "Status": "Account Exist" if sc_md_ac.get('Snapdeal'.lower()).get('registered') else "Account Not Exist",
     },
     
     "AltBalaji":{
         "logo" : "./img/alt_balaji.png",
-        "Status": "Account Exist" if sc_md_ac['AltBalaji'.lower()]['registered'] else "Account Not Exist",
+        "Status": "Account Exist" if sc_md_ac.get('AltBalaji'.lower()).get('registered') else "Account Not Exist",
     },
     
     "Shopclues":{
         "logo" : "./img/shopclus.jpg",
-        "Status": "Account Exist" if sc_md_ac['Shopclues'.lower()]['registered'] else "Account Not Exist",
+        "Status": "Account Exist" if sc_md_ac.get('Shopclues'.lower()).get('registered') else "Account Not Exist",
     },
     
     "Ajio":{
         "logo" : "./img/alt_balaji.png",
-        "Status": "Account Exist" if sc_md_ac['Ajio'.lower()]['registered'] else "Account Not Exist",
+        "Status": "Account Exist" if sc_md_ac.get('Ajio'.lower()).get('registered') else "Account Not Exist",
     },
     
 }
@@ -219,10 +216,10 @@ for k,v in social_media_acc.items():
         if k=="WhatsApp":
             pdf.set_xy(left_margin + 35, start+20)
             pdf.cell(50,10,"AboutStatus",0)
-            pdf.cell(50,10,f"{str(v['AboutStatus'])}",0,1)
+            pdf.cell(50,10,f"{str(v.get('AboutStatus','none'))}",0,1)
             pdf.set_xy(left_margin + 35, start+30)
             pdf.cell(50,10,"LastUpdate",0)
-            pdf.cell(50,10,f"{str(v['LastUpdate'])}",0,1)
+            pdf.cell(50,10,f"{str(v.get('LastUpdate','none'))}",0,1)
         start += 55
     else:
         pdf.add_page()
@@ -240,10 +237,10 @@ for k,v in social_media_acc.items():
         if k=="WhatsApp":
             pdf.set_xy(left_margin + 35, start+20)
             pdf.cell(50,10,"AboutStatus",0)
-            pdf.cell(50,10,f"{str(v['AboutStatus'])}",0,1)
+            pdf.cell(50,10,f"{str(v.get('AboutStatus','none'))}",0,1)
             pdf.set_xy(left_margin + 35, start+30)
             pdf.cell(50,10,"LastUpdate",0)
-            pdf.cell(50,10,f"{str(v['LastUpdate'])}",0,1)
+            pdf.cell(50,10,f"{str(v.get('LastUpdate','none'))}",0,1)
         start += 55
         
 pdf.add_page()
@@ -303,4 +300,5 @@ pdf.set_font('DejaVu', '', 12)
 pdf.multi_cell(0,10,str(para))
 
 
-pdf.output(os.path.join(os.getcwd(),f"Phone Info/{data['Truecaller_data']['data']['phones'][0]['e164Format']}_phone.pdf"), 'F')
+pdf.output(os.path.join(os.getcwd(),f"Phone Info/{data.get('Truecaller_data').get('data').get('phones')[0].get('e164Format')}_phone.pdf"), 'F')
+
