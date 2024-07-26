@@ -1,0 +1,112 @@
+{"email": {
+   "PROFILE_CONTAINER":{
+      "profile":{
+         "personId":"115527347223487925909",
+         "names":{
+            "PROFILE":{
+               "lastName":"None",
+               "fullname":"pallav",
+               "firstName":"None"
+            }
+         },
+         "emails":{
+            "PROFILE":{
+               "value":"pallav.2905@gmail.com"
+            }
+         },
+         "extendedData":{
+            "gplusData":{
+               "contentRestriction":"",
+               "isEntrepriseUser": false
+            },
+            "dynamiteData":{
+               "dndState":"None",
+               "presence":"None",
+               "customerId":"",
+               "entityType":"PERSON"
+            }
+         },
+         "sourceIds":{
+            "PROFILE":{
+               "lastUpdated":"2024/07/23 15:19:55 (UTC)"
+            }
+         },
+         "inAppReachability":{
+            "PROFILE":{
+               "apps":[
+                  "Photos",
+                  "Kaboo",
+                  "Maps"
+               ]
+            }
+         },
+         "profileInfos":{
+            "PROFILE":{
+               "userTypes":[
+                  "GOOGLE_USER"
+               ]
+            }
+         },
+         "profilePhotos":{
+            "PROFILE":{
+               "url":"https://lh3.googleusercontent.com/a-/ALV-UjWBXSi13blK10WqyIn7Rh7hQ5Vy4EXcZsVafr7nMUW-1f5VnRM=mo",
+               "flathash":"0000183c38300000",
+               "isDefault":true
+            }
+         },
+         "coverPhotos":{
+            "PROFILE":{
+               "url":"https://lh3.googleusercontent.com/c5dqxl-2uHZ82ah9p7yxrVF1ZssrJNSV_15Nu0TUZwzCWqmtoLxCUJgEzLGtxsrJ6-v6R6rKU_-FYm881TTiMCJ_",
+               "flathash":"None",
+               "isDefault":true
+            }
+         }
+      },
+      "play_games":"None",
+      "maps":{
+         "photos":[
+            
+         ],
+         "reviews":[
+            {
+               "date":"2020/03/07 06:46:59 (UTC)",
+               "id":"ChZDSUhNMG9nS0VJQ0FnSURzMFlDbWZ3EAE",
+               "location":{
+                  "types":[
+                     "school"
+                  ],
+                  "id":"0x3be792cda34ecf5d:0xc4d8c7634eba1c3f",
+                  "address":"AdityaGanesh Apt, near Sai temple, Hendre Pada, Badlapur, Maharashtra 421503, India",
+                  "name":"Poonam Coaching Classes",
+                  "cost_level":0,
+                  "position":{
+                     "longitude":73.24299479999999,
+                     "latitude":19.169054499999998
+                  },
+                  "tags":[
+                     "Coaching center"
+                  ]
+               },
+               "comment":"",
+               "rating":5
+            }
+         ],
+         "stats":{
+            "Reviews":0,
+            "Ratings":1,
+            "Photos":0,
+            "Videos":0,
+            "Captions":0,
+            "Answers":0,
+            "Edits":0,
+            "Reported incorrect":0,
+            "Places added":0,
+            "Roads added":0,
+            "Facts checked":0,
+            "Q&A":0
+         }
+      },
+      "calendar":"None"
+   }
+}
+}

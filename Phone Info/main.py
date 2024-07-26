@@ -1,6 +1,7 @@
 from fpdf import FPDF
 from data import data
 import datetime
+import os
 
 class PDF(FPDF):
     def header(self):
@@ -27,11 +28,23 @@ pdf.add_page()
 
 # defined Fonts 
 pdf.add_font('DejaVu', '', './font/DejaVuSans.ttf', uni=True)
+pdf.add_font('DejaVu-Bold', '', './font/dejavu-fonts-ttf-2.37/ttf/DejaVuSansCondensed-Bold.ttf', uni=True)
 
 # Set the width for the image
-image_width = pdf.w - 2 * left_margin
-pdf.image('./img/logo.png', left_margin, 10, w=image_width)
+# pdf.set_xy(0,0)
+pdf.image('./img/logo1.png', left_margin, 7, h=30)
 pdf.ln(30)
+
+pdf.set_left_margin(left_margin+45)
+pdf.set_y(10)
+pdf.set_font('DejaVu-Bold', '', 22)
+pdf.cell(50,10,"RUDRASTRA",0)
+pdf.set_font('DejaVu', '', 22)
+pdf.cell(30,10,"OSNIT",0,1)
+pdf.cell(35,10,"REPORT",0)
+
+pdf.set_font('times', '', 18)
+pdf.cell(30,10,"for  {}".format(data['Truecaller_data']['data']['phones'][0]['e164Format']),0)
 
 # Add confidential note
 pdf.set_xy(0, 30 + 10)  # Adjust y-position after the image
@@ -46,6 +59,7 @@ pdf.ln(20)
 pdf.set_left_margin(left_margin + 10)
 pdf.set_text_color(0, 0, 0)
 pdf.set_font('Times', 'B', 18)
+pdf.set_x(left_margin+10)
 pdf.image("./img/arrow.png",w=10)
 pdf.set_xy(left_margin + 25, 80)
 pdf.cell(0, 10, 'Subject Informationn', 0,ln=1)
@@ -288,4 +302,5 @@ report.
 pdf.set_font('DejaVu', '', 12)
 pdf.multi_cell(0,10,str(para))
 
-pdf.output('tuto2.pdf', 'F')
+
+pdf.output(os.path.join(os.getcwd(),f"Phone Info/{data['Truecaller_data']['data']['phones'][0]['e164Format']}_phone.pdf"), 'F')
