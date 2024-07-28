@@ -23,10 +23,10 @@ pdf.alias_nb_pages()
 pdf.add_page()
 
 # defined Fonts 
-pdf.add_font('DejaVu', '', './font/DejaVuSans.ttf', uni=True)
-pdf.add_font('DejaVu-Bold', '', './font/dejavu-fonts-ttf-2.37/ttf/DejaVuSansCondensed-Bold.ttf', uni=True)
+pdf.add_font('DejaVu', '', './PDF/font/DejaVuSans.ttf', uni=True)
+pdf.add_font('DejaVu-Bold', '', r'D:\TechnicalVPN_Projects\PDF_Design\PDF\font\DejaVuSansCondensed-Bold.ttf', uni=True)
 # Set the width for the image
-pdf.image('./img/logo1.png', left_margin, 7, h=30)
+pdf.image('./PDF/img/logo1.png', left_margin, 7, h=30)
 pdf.ln(30)
 
 pdf.set_left_margin(left_margin + 45)
@@ -37,7 +37,7 @@ pdf.set_font('DejaVu', '', 22)
 pdf.cell(30, 10, "OSNIT", 0, 1)
 pdf.cell(35, 10, "REPORT", 0)
 
-pdf.set_font('times', '', 18)
+pdf.set_font('Times', '', 18)
 email_value = profile_data.get('emails', {}).get('PROFILE', {}).get('value', 'N/A')
 pdf.cell(30, 10, f"for  {email_value}", 0)
 
@@ -56,7 +56,7 @@ pdf.set_text_color(0, 0, 0)
 
 pdf.set_x(left_margin + 10)
 pdf.set_font('Times', 'B', 18)
-pdf.image("./img/arrow.png", w=10)
+pdf.image("./PDF/img/arrow.png", w=10)
 line_gap = 70
 pdf.set_xy(left_margin + 25, line_gap)
 pdf.cell(0, 10, 'Profile Information', 0, ln=1)
@@ -88,7 +88,7 @@ pdf.ln(10)
 
 # Apps Section Started
 pdf.set_font('Times', 'B', 18)
-pdf.image("./img/arrow.png", w=10)
+pdf.image("./PDF/img/arrow.png", w=10)
 line_gap += 55
 pdf.set_xy(left_margin + 25, line_gap)
 pdf.cell(0, 10, 'Apps Used: ', 0, ln=1)
@@ -112,7 +112,7 @@ pdf.ln(10)
 # Address Section Started
 address_data = data.get('email', {}).get('PROFILE_CONTAINER', {}).get('maps', {}).get('reviews', [{}])[0].get('location', {})
 pdf.set_font('Times', 'B', 18)
-pdf.image("./img/arrow.png", w=10)
+pdf.image("./PDF/img/arrow.png", w=10)
 line_gap += 10
 pdf.set_xy(left_margin + 25, line_gap)
 pdf.cell(0, 10, 'Address Information', 0, ln=1)
@@ -154,7 +154,7 @@ pdf.add_page()
 # //Legal Disclaimer for OSINT Report
 pdf.set_text_color(0, 0, 0)
 pdf.set_font('Times', 'B', 18)
-pdf.image("./img/arrow.png",w=10)
+pdf.image("./PDF/img/arrow.png",w=10)
 pdf.set_xy(left_margin + 25, 10)
 pdf.cell(0, 10, "Legal Disclaimer for OSINT Report", 0,ln=1)
 
